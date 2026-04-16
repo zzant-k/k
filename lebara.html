@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minal Aidzin Wal Faizin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!--
+  ╔══════════════════════════════════════════════════════╗
+  ║  SETUP EMAILJS — ikuti langkah ini:                 ║
+  ║                                                      ║
+  ║  1. Daftar gratis di https://www.emailjs.com         ║
+  ║  2. Add Email Service (Gmail / Outlook, dll)         ║
+  ║  3. Buat Email Template, pakai variabel ini:         ║
+  ║       {{from_name}}  → nama pengirim                ║
+  ║       {{message}}    → isi pesan                    ║
+  ║  4. Ganti 3 nilai di bawah ini ↓                    ║
+  ╚══════════════════════════════════════════════════════╝
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    const EJS_PUBLIC_KEY  = 'UORKruCLEgyE68HCh';
+    const EJS_SERVICE_ID  = 'service_vw5m319';
+    const EJS_TEMPLATE_ID = 'template_pyqnryi';
+  </script>
+
+  <style>
+    :root {
+      --green-deep:  #2D4A35;
+      --green-mid:   #4A6741;
+      --green-soft:  #6B7C5C;
+      --cream-light: #FAF7F2;
+      --cream-warm:  #F5F0E8;
+      --gold:        #C9A96E;
+      --gold-light:  #DFC08A;
+      --gold-muted:  #B8977E;
+      --brown-soft:  #8B7355;
+      --text-dark:   #2A2A2A;
+      --text-body:   #4A4A4A;
+      --text-muted:  #8A8A8A;
+      --shadow-card: 0 20px 60px rgba(45,74,53,0.12), 0 4px 16px rgba(45,74,53,0.08);
+      --radius:      24px;
+      --font-serif:  'Cormorant Garamond', Georgia, serif;
+      --font-sans:   'DM Sans', 'Helvetica Neue', sans-serif;
+      --ease:        cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+
+    body {
+      min-height: 100dvh;
+      background: var(--cream-light);
+      font-family: var(--font-sans);
+      color: var(--text-body);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    /* Background */
+    /* Welcome Alert & Global Marquee */
+    .welcome-modal {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(250, 247, 242, 0.98);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px; text-align: center;
+      transition: opacity 0.6s var(--ease), visibility 0.6s;
+    }
+    .welcome-modal.hidden {
+      opacity: 0; visibility: hidden; pointer-events: none;
+    }
+    .welcome-content {
+      background: var(--cream-warm);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(201,169,110,.3);
+      max-width: 380px; width: 100%;
+      animation: floatCenter 4s ease-in-out infinite alternate;
+    }
+    .welcome-title {
+      font-family: var(--font-serif); font-size: 2rem;
+      color: var(--green-deep); margin-bottom: 12px; line-height: 1.2;
+    }
+    .welcome-title em { font-style: italic; color: var(--green-mid); }
+    .welcome-desc {
+      font-size: 0.9rem; color: var(--text-body);
+      line-height: 1.7; margin-bottom: 24px;
+    }
+    .btn-open {
+      background: var(--green-deep); color: var(--cream-warm);
+      border: none; border-radius: 50px; padding: 14px 32px;
+      font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500;
+      letter-spacing: 0.05em; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(45,74,53,.25);
+      transition: all 0.3s var(--ease);
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%;
+    }
+    .btn-open:hover {
+      background: var(--green-mid); transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(45,74,53,.3);
+    }
+
+    .global-marquee {
+      position: fixed; bottom: 0; left: 0; width: 100%;
+      background: rgba(45,74,53, 0.95);
+      color: var(--cream-warm);
+      padding: 8px 12px; 
+      padding-bottom: max(8px, env(safe-area-inset-bottom));
+      font-size: clamp(0.75rem, 2.5vw, 0.85rem); 
+      letter-spacing: 0.05em;
+      z-index: 100;
+      overflow: hidden; white-space: nowrap;
+      opacity: 0; visibility: hidden;
+      transition: opacity 1s var(--ease), visibility 1s;
+    }
+    .global-marquee.active { opacity: 1; visibility: visible; }
+    .global-marquee-text {
+      display: inline-block; padding-left: 100%;
+      animation: marquee 16s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .bg-pattern {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        radial-gradient(circle at 25% 25%, rgba(201,169,110,.07) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(107,124,92,.07) 0%, transparent 50%),
+        repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(201,169,110,.03) 30px, rgba(201,169,110,.03) 31px),
+        repeating-linear-gradient(-45deg, transparent, transparent 30px, rgba(107,124,92,.03) 30px, rgba(107,124,92,.03) 31px);
+    }
+
+    /* Floating Ketupat */
+    .deco-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .ketupat { position: absolute; animation: floatKetupat var(--fd,8s) ease-in-out infinite alternate; }
+    .ketupat-1 { width:80px;  top:8%;    left:6%;   --fd:7s;   animation-delay:0s;   opacity:.7; }
+    .ketupat-2 { width:55px;  top:15%;   right:8%;  --fd:9s;   animation-delay:-2s;  opacity:.6; }
+    .ketupat-3 { width:100px; bottom:12%;left:4%;   --fd:11s;  animation-delay:-4s;  opacity:.5; }
+    .ketupat-4 { width:60px;  bottom:18%;right:7%;  --fd:8.5s; animation-delay:-1s;  opacity:.65;}
+    .ketupat-5 { width:70px;  top:45%;   left:-2%;  --fd:10s;  animation-delay:-3s;  opacity:.4; }
+
+    @keyframes floatKetupat {
+      0%   { transform: translateY(0)     rotate(-3deg); }
+      50%  { transform: translateY(-14px) rotate(0deg);  }
+      100% { transform: translateY(-6px)  rotate(3deg);  }
+    }
+
+    /* Sparkles */
+    .sparkles { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+    .sparkle  { position: absolute; font-size: 10px; color: var(--gold); opacity: 0; animation: sparkleFade var(--sd,4s) ease-in-out infinite; }
+    .s1{top:20%;left:15%;--sd:3.5s;animation-delay:0s}
+    .s2{top:35%;right:20%;--sd:4.2s;animation-delay:-1s}
+    .s3{bottom:30%;left:25%;--sd:3.8s;animation-delay:-2s}
+    .s4{top:60%;right:12%;--sd:4.5s;animation-delay:-.5s}
+    .s5{top:75%;left:40%;--sd:3.2s;animation-delay:-1.5s}
+    .s6{top:12%;right:35%;--sd:4s;animation-delay:-2.5s}
+
+    @keyframes sparkleFade {
+      0%   { opacity:0;  transform:scale(.5)  rotate(0deg);   }
+      30%  { opacity:.6; transform:scale(1)   rotate(45deg);  }
+      60%  { opacity:.4; transform:scale(1.2) rotate(90deg);  }
+      100% { opacity:0;  transform:scale(.5)  rotate(180deg); }
+    }
+
+    /* Music btn */
+    .music-btn {
+      position:fixed; top:20px; right:20px; z-index:100;
+      width:40px; height:40px; border-radius:50%;
+      border:1.5px solid rgba(201,169,110,.4);
+      background:rgba(250,247,242,.85); backdrop-filter:blur(8px);
+      color:var(--green-deep); font-size:16px; cursor:pointer;
+      transition:all .3s var(--ease);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .music-btn:hover { background:rgba(201,169,110,.15); border-color:var(--gold); transform:scale(1.05); }
+    .music-btn.playing .music-icon { animation: musicPulse 1.5s ease-in-out infinite; }
+    @keyframes musicPulse { 0%,100%{transform:scale(1)}50%{transform:scale(1.15)} }
+
+    /* Layout */
+    .main-container {
+      position:relative; z-index:10;
+      width:100%; min-height:100dvh;
+      display:flex; align-items:center; justify-content:center;
+      padding:24px 20px 48px; /* Extra space at bottom for marquee */
+    }
+    .card-wrapper {
+      position:relative; width:100%; max-width:420px;
+      display:flex; flex-direction:column; align-items:center;
+    }
+
+    /* Dots */
+    .progress-dots { display:flex; gap:8px; margin-bottom:20px; }
+    .dot {
+      width:6px; height:6px; border-radius:50%;
+      background:rgba(45,74,53,.2); cursor:pointer;
+      transition:all .4s var(--ease);
+    }
+    .dot.active { width:24px; border-radius:3px; background:var(--green-deep); }
+
+    /* Card */
+    .card {
+      position:relative; width:100%;
+      background:var(--cream-warm);
+      border-radius:var(--radius);
+      padding:44px 40px 36px;
+      box-shadow:var(--shadow-card);
+      border:1px solid rgba(201,169,110,.2);
+      display:none; flex-direction:column; align-items:center; text-align:center;
+      overflow:hidden;
+      opacity:0; transform:translateY(24px);
+    }
+    .card.active { display:flex; animation:cardEnter .6s var(--ease) forwards; }
+    .card.exit   { animation:cardExit .38s var(--ease) forwards; }
+
+    @keyframes cardEnter { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes cardExit  { from{opacity:1;transform:translateY(0)} to{opacity:0;transform:translateY(-20px)} }
+
+    .card-ornament {
+      position:absolute; left:40px; right:40px; height:1px;
+      background:linear-gradient(90deg,transparent,rgba(201,169,110,.5) 30%,rgba(201,169,110,.5) 70%,transparent);
+    }
+    .card-ornament.top    { top:20px; }
+    .card-ornament.bottom { bottom:20px; }
+
+    .card-eyebrow {
+      font-size:.68rem; font-weight:500; letter-spacing:.18em; text-transform:uppercase;
+      color:var(--gold); margin-bottom:20px;
+    }
+
+    .ketupat-center {
+      width:80px; height:80px; margin-bottom:20px;
+      animation:floatCenter 5s ease-in-out infinite alternate;
+      filter:drop-shadow(0 4px 12px rgba(201,169,110,.2));
+    }
+    .ketupat-center.small { width:56px; height:56px; margin-bottom:16px; }
+    @keyframes floatCenter { 0%{transform:translateY(0) rotate(-2deg)} 100%{transform:translateY(-8px) rotate(2deg)} }
+
+    .card-title {
+      font-family:var(--font-serif);
+      font-size:clamp(1.8rem,5vw,2.4rem);
+      font-weight:300; line-height:1.25;
+      color:var(--green-deep); letter-spacing:-.01em; margin-bottom:18px;
+    }
+    .card-title em { font-style:italic; font-weight:400; color:var(--green-mid); }
+
+    .divider { display:flex; align-items:center; gap:12px; margin-bottom:20px; width:100%; }
+    .divider::before { content:''; flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(201,169,110,.4)); }
+    .divider::after  { content:''; flex:1; height:1px; background:linear-gradient(90deg,rgba(201,169,110,.4),transparent); }
+    .divider-ornament { font-size:10px; color:var(--gold); flex-shrink:0; }
+
+    .card-body { font-size:clamp(.9rem,2.5vw,1rem); font-weight:300; line-height:1.9; color:var(--text-body); letter-spacing:.01em; }
+    .card-body.small { font-size:.85rem; }
+    .card-body em { font-style:italic; color:var(--green-mid); font-family:var(--font-serif); font-size:1.05em; font-weight:400; }
+
+    .card-note { margin-top:16px; font-size:.78rem; color:var(--text-muted); font-style:italic; letter-spacing:.02em; }
+
+    .signature { margin-top:20px; font-family:var(--font-serif); font-size:.85rem; font-style:italic; color:var(--text-muted); line-height:1.7; }
+
+    /* ── FORM CARD ── */
+    .form-card { cursor:default; }
+
+    .card-subtitle {
+      font-size:.82rem; color:var(--text-muted);
+      line-height:1.65; margin-bottom:22px;
+    }
+
+    .reply-form { width:100%; display:flex; flex-direction:column; gap:12px; text-align:left; }
+
+    .form-group { display:flex; flex-direction:column; gap:6px; }
+
+    .form-label {
+      font-size:.7rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--green-soft);
+    }
+
+    .form-input,
+    .form-textarea {
+      width:100%;
+      background:rgba(255,255,255,.75);
+      border:1.5px solid rgba(201,169,110,.3);
+      border-radius:10px;
+      padding:11px 14px;
+      font-family:var(--font-sans); font-size:.9rem; font-weight:300;
+      color:var(--text-dark);
+      outline:none; resize:none; -webkit-appearance:none;
+      transition:border-color .25s, box-shadow .25s;
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder { color:var(--text-muted); opacity:1; }
+    .form-input:focus,
+    .form-textarea:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,169,110,.13); }
+    .form-textarea { min-height:88px; line-height:1.65; }
+
+    .btn-send {
+      width:100%; margin-top:2px;
+      background:var(--green-deep); color:var(--cream-warm);
+      border:none; border-radius:50px;
+      padding:13px 24px;
+      font-family:var(--font-sans); font-size:.85rem; font-weight:500; letter-spacing:.05em;
+      cursor:pointer;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      box-shadow:0 4px 16px rgba(45,74,53,.25);
+      transition:all .3s var(--ease);
+    }
+    .btn-send:hover:not(:disabled) { background:var(--green-mid); transform:translateY(-1px); box-shadow:0 6px 20px rgba(45,74,53,.3); }
+    .btn-send:active  { transform:translateY(0); }
+    .btn-send:disabled { opacity:.55; cursor:not-allowed; }
+
+    .send-spinner {
+      width:14px; height:14px;
+      border:2px solid rgba(255,255,255,.35);
+      border-top-color:#fff; border-radius:50%;
+      animation:spin .7s linear infinite; display:none;
+    }
+    .btn-send.loading .send-spinner { display:block; }
+    .btn-send.loading .send-label   { display:none; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    .form-status {
+      display:none; border-radius:10px; padding:11px 14px;
+      font-size:.82rem; line-height:1.5; text-align:center;
+    }
+    .form-status.success { display:block; background:rgba(107,124,92,.12); color:var(--green-deep); border:1px solid rgba(107,124,92,.25); }
+    .form-status.error   { display:block; background:rgba(180,80,60,.08);  color:#8B3A2E;           border:1px solid rgba(180,80,60,.2);  }
+
+    /* Nav */
+    .nav-area { display:flex; align-items:center; justify-content:center; gap:12px; margin-top:24px; width:100%; }
+
+    .btn-prev, .btn-next {
+      display:flex; align-items:center; gap:8px;
+      cursor:pointer; border:none; border-radius:50px;
+      transition:all .3s var(--ease);
+      font-family:var(--font-sans); font-size:.82rem; letter-spacing:.05em;
+    }
+    .btn-prev { background:transparent; color:var(--text-muted); padding:10px 16px; border:1.5px solid rgba(0,0,0,.1); }
+    .btn-prev:hover:not(:disabled) { color:var(--green-deep); border-color:rgba(45,74,53,.3); background:rgba(45,74,53,.04); }
+    .btn-prev:disabled { opacity:0; pointer-events:none; }
+    .btn-prev svg, .btn-next svg { width:16px; height:16px; flex-shrink:0; }
+
+    .btn-next {
+      background:var(--green-deep); color:var(--cream-warm);
+      padding:12px 24px; flex:1; max-width:200px; justify-content:center;
+      box-shadow:0 4px 16px rgba(45,74,53,.25);
+    }
+    .btn-next:hover { background:var(--green-mid); transform:translateY(-1px); box-shadow:0 6px 20px rgba(45,74,53,.3); }
+    .btn-next:active { transform:translateY(0); }
+    .btn-next.done  { background:var(--gold); }
+    .btn-next.done:hover { background:var(--gold-light); }
+    .btn-next.hide  { visibility:hidden; pointer-events:none; }
+
+    .tap-hint { margin-top:12px; font-size:.72rem; color:var(--text-muted); letter-spacing:.08em; opacity:.6; animation:hintBlink 3s ease-in-out infinite; }
+    @keyframes hintBlink { 0%,100%{opacity:.6} 50%{opacity:.2} }
+
+    /* Memories Scroll Area */
+    .memories-container {
+      position: relative;
+      width: 100%;
+      height: 320px;
+      max-height: 48vh;
+      margin-top: 8px;
+      margin-bottom: 4px;
+      display: flex;
+    }
+    .flight-path-container {
+      width: 32px;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .flight-path {
+      position: absolute;
+      left: 12px;
+      top: 10px;
+      bottom: 10px;
+      width: 3px;
+      background: rgba(201,169,110,.25);
+      border-radius: 3px;
+    }
+    .flight-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 0%;
+      background: var(--gold);
+      border-radius: 3px;
+    }
+    .airplane-icon {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(180deg);
+      font-size: 1.25rem;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+      transition: top 0.1s linear;
+      z-index: 2;
+    }
+    .memories-scroll-area {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 4px;
+      -ms-overflow-style: none; /* IE/Edge */
+      scrollbar-width: none;    /* Firefox */
+      border-radius: 8px;
+    }
+    .memories-scroll-area::-webkit-scrollbar {
+      display: none; /* Chrome/Safari/Opera */
+    }
+    .memory-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-bottom: 24px;
+      padding-top: 4px;
+    }
+    .memory-item {
+      position: relative;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(201,169,110,.4);
+      box-shadow: 0 4px 12px rgba(45,74,53,.08);
+      aspect-ratio: 4/3;
+      background: rgba(201,169,110,.1);
+    }
+    .memory-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(8px) brightness(0.85);
+      transition: filter 0.4s var(--ease);
+    }
+    .memory-item:hover .memory-img,
+    .memory-item:active .memory-img {
+      filter: blur(0px) brightness(1); /* Blur hilang kalau disentuh */
+    }
+    .memory-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 12px 10px;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      color: #fff;
+      font-size: 0.75rem;
+      text-align: center;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    /* Photobooth 3D Decorations */
+    .pb-card {
+      position: relative;
+    }
+    .pb-deco {
+      position: absolute;
+      pointer-events: none;
+      z-index: 2;
+      font-size: 1.2rem;
+      opacity: 0.7;
+      animation: pbFloat 3s ease-in-out infinite alternate;
+    }
+    .pb-deco.d1 { top: 60px; left: -6px; animation-delay: 0s; font-size: 1.4rem; }
+    .pb-deco.d2 { top: 120px; right: -8px; animation-delay: -0.8s; font-size: 1rem; }
+    .pb-deco.d3 { bottom: 100px; left: -4px; animation-delay: -1.5s; font-size: 1.3rem; }
+    .pb-deco.d4 { bottom: 60px; right: -6px; animation-delay: -2.2s; font-size: 1.1rem; }
+    .pb-deco.d5 { top: 200px; left: -10px; animation-delay: -0.5s; font-size: 0.9rem; }
+    .pb-deco.d6 { top: 180px; right: -10px; animation-delay: -1.8s; font-size: 1rem; }
+    .pb-deco.d7 { bottom: 160px; right: -4px; animation-delay: -2.8s; font-size: 1.5rem; }
+    .pb-deco.d8 { top: 40px; right: 10px; animation-delay: -1.2s; font-size: 0.85rem; }
+    @keyframes pbFloat {
+      0%   { transform: translateY(0) rotate(0deg) scale(1); }
+      50%  { transform: translateY(-8px) rotate(8deg) scale(1.1); }
+      100% { transform: translateY(-4px) rotate(-5deg) scale(1.05); }
+    }
+
+    /* Corner ornaments */
+    .pb-corner {
+      position: absolute;
+      width: 28px; height: 28px;
+      pointer-events: none; z-index: 2;
+      opacity: 0.45;
+    }
+    .pb-corner.tl { top: 12px; left: 12px; }
+    .pb-corner.tr { top: 12px; right: 12px; transform: scaleX(-1); }
+    .pb-corner.bl { bottom: 12px; left: 12px; transform: scaleY(-1); }
+    .pb-corner.br { bottom: 12px; right: 12px; transform: scale(-1,-1); }
+
+    /* Scattered Polaroid Photobooth */
+    .pb-strip {
+      position: relative;
+      width: 100%;
+      height: 340px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Vinyl Record Background */
+    .pb-vinyl {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, #333 0%, #111 40%, #000 100%);
+      border-radius: 50%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.95;
+    }
+    .pb-vinyl::before {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+    .pb-vinyl::after {
+      content: '';
+      position: absolute;
+      inset: 15px;
+      border: 1px solid rgba(255,255,255,0.03);
+      border-radius: 50%;
+    }
+    .pb-vinyl-label {
+      width: 100px;
+      height: 100px;
+      background: #eee;
+      border-radius: 50%;
+      border: 4px solid #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 0.7rem;
+      color: #333;
+      text-align: center;
+      line-height: 1.2;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    /* Individual polaroid photo */
+    .pb-polaroid {
+      position: absolute;
+      background: #ffffff;
+      padding: 8px 8px 30px 8px;
+      box-shadow:
+        0 4px 12px rgba(0,0,0,0.3),
+        0 15px 35px rgba(0,0,0,0.2);
+      border-radius: 2px;
+      width: 48%;
+      /* Smoother transition with a subtle spring effect */
+      transition:
+        transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.6s ease,
+        opacity 0.6s ease,
+        top 0.6s ease,
+        left 0.6s ease,
+        width 0.6s ease;
+      cursor: pointer;
+      z-index: 2;
+      will-change: transform, top, left, width;
+    }
+    .pb-polaroid:hover {
+      box-shadow:
+        0 12px 25px rgba(0,0,0,0.4),
+        0 25px 60px rgba(0,0,0,0.35);
+      z-index: 10 !important;
+      transform: scale(1.1) rotate(0deg) !important;
+    }
+    .pb-polaroid .pb-photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: #222;
+    }
+    .pb-polaroid .pb-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .pb-polaroid .pb-label {
+      text-align: center;
+      font-family: var(--font-serif);
+      font-size: 0.55rem;
+      color: #666;
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    /* Positions & rotations – Scattered around the vinyl */
+    .pb-polaroid.p1 { top: 10px; left: 5%; transform: rotate(-12deg); z-index: 4; }
+    .pb-polaroid.p2 { top: 35px; right: 5%; transform: rotate(8deg); z-index: 3; }
+    .pb-polaroid.p3 { bottom: 65px; left: 8%; transform: rotate(10deg); z-index: 2; }
+    .pb-polaroid.p4 { bottom: 25px; right: 8%; transform: rotate(-6deg); z-index: 5; }
+
+    /* Zoomed state for polaroid — Centered on screen */
+    .pb-polaroid.zoomed {
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      width: 85vw !important;
+      max-width: 380px !important;
+      transform: translate(-50%, -50%) rotate(0deg) !important;
+      z-index: 1000 !important;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+      cursor: zoom-out;
+      padding: 12px 12px 40px 12px;
+    }
+    .pb-polaroid.zoomed .pb-label {
+      font-size: 0.8rem;
+      margin-top: 10px;
+    }
+    
+    .pb-card.overlay-active::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
+      z-index: 950;
+      opacity: 0;
+      animation: fadeIn 0.4s forwards;
+      pointer-events: auto;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .pb-frame-deco {
+      position: absolute;
+      pointer-events: none;
+      z-index: 3;
+      animation: pbCuteFloat 2.5s ease-in-out infinite alternate;
+    }
+    .pb-frame-deco.f1 { top: -12px; left: 10px; font-size: 1.1rem; animation-delay: 0s; }
+    .pb-frame-deco.f2 { top: -10px; right: 10px; font-size: 0.9rem; animation-delay: -0.6s; }
+    .pb-frame-deco.f3 { top: 25%; left: -16px; font-size: 1rem; animation-delay: -1.2s; }
+    .pb-frame-deco.f4 { top: 25%; right: -16px; font-size: 1.1rem; animation-delay: -0.3s; }
+    .pb-frame-deco.f5 { top: 50%; left: -14px; font-size: 0.95rem; animation-delay: -1.8s; }
+    .pb-frame-deco.f6 { top: 50%; right: -14px; font-size: 1rem; animation-delay: -0.9s; }
+    .pb-frame-deco.f7 { top: 75%; left: -16px; font-size: 1.1rem; animation-delay: -1.5s; }
+    .pb-frame-deco.f8 { top: 75%; right: -16px; font-size: 0.9rem; animation-delay: -2.1s; }
+    .pb-frame-deco.f9 { bottom: -12px; left: 30%; font-size: 1rem; animation-delay: -0.4s; }
+    .pb-frame-deco.f10 { bottom: -12px; right: 30%; font-size: 1.1rem; animation-delay: -1.7s; }
+    @keyframes pbCuteFloat {
+      0%   { transform: translateY(0) scale(1) rotate(0deg); }
+      50%  { transform: translateY(-5px) scale(1.15) rotate(6deg); }
+      100% { transform: translateY(-2px) scale(1.05) rotate(-4deg); }
+    }
+
+    /* Letter Card — Interactive Envelope */
+    .letter-envelope {
+      position: relative;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    /* ── Vintage Envelope Cover ── */
+    .mailbox-closed {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3/2;
+      background: linear-gradient(160deg, #f5eedf 0%, #ede4cc 60%, #e8ddc2 100%);
+      border-radius: 6px;
+      box-shadow:
+        0 2px 6px rgba(0,0,0,0.08),
+        0 8px 28px rgba(0,0,0,0.14),
+        inset 0 1px 0 rgba(255,255,255,0.5);
+      overflow: visible;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      cursor: pointer;
+    }
+    .mailbox-closed:hover {
+      transform: translateY(-6px) scale(1.015);
+      box-shadow:
+        0 4px 10px rgba(0,0,0,0.1),
+        0 16px 40px rgba(0,0,0,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.5);
+    }
+
+    /* Side flaps (left & right triangles) */
+    .env-flap-left,
+    .env-flap-right {
+      position: absolute;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      z-index: 1;
+    }
+    .env-flap-left {
+      left: 0;
+      border-right: 49vw solid transparent;
+      border-bottom: 27vw solid #e0d5b8;
+      max-width: 50%;
+    }
+    .env-flap-right {
+      right: 0;
+      border-left: 49vw solid transparent;
+      border-bottom: 27vw solid #d8ccaa;
+      max-width: 50%;
+    }
+
+    /* Bottom flap (triangle pointing up from bottom) */
+    .env-flap-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      z-index: 0;
+      background: linear-gradient(175deg, #ddd0b0 0%, #cfc1996e 100%);
+      clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+    }
+
+    /* Top flap (curved envelope lid) */
+    .env-flap-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 3;
+      overflow: hidden;
+    }
+    .env-flap-top svg {
+      display: block;
+      width: 100%;
+    }
+
+    /* Wax Seal */
+    .env-wax-seal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -44%);
+      z-index: 10;
+      width: clamp(60px, 18%, 88px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      /* Layered wax texture */
+      background:
+        radial-gradient(circle at 38% 35%, rgba(255,255,255,0.18) 0%, transparent 55%),
+        radial-gradient(circle at 65% 68%, rgba(0,0,0,0.12) 0%, transparent 45%),
+        radial-gradient(ellipse at center, #b5241c 0%, #8f1810 55%, #6e120b 100%);
+      box-shadow:
+        0 2px 4px rgba(0,0,0,0.25),
+        0 6px 18px rgba(0,0,0,0.3),
+        inset 0 1px 2px rgba(255,180,160,0.2),
+        inset 0 -2px 4px rgba(0,0,0,0.3);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      animation: sealPulse 3.5s ease-in-out infinite;
+    }
+    .mailbox-closed:hover .env-wax-seal {
+      transform: translate(-50%, -44%) scale(1.06);
+      box-shadow:
+        0 4px 8px rgba(0,0,0,0.3),
+        0 10px 28px rgba(0,0,0,0.36),
+        inset 0 1px 2px rgba(255,180,160,0.25),
+        inset 0 -2px 4px rgba(0,0,0,0.35);
+    }
+    @keyframes sealPulse {
+      0%,100% { box-shadow: 0 2px 4px rgba(0,0,0,0.25), 0 6px 18px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,180,160,0.2), inset 0 -2px 4px rgba(0,0,0,0.3); }
+      50% { box-shadow: 0 2px 4px rgba(0,0,0,0.25), 0 10px 28px rgba(155,20,10,0.35), inset 0 1px 2px rgba(255,180,160,0.25), inset 0 -2px 4px rgba(0,0,0,0.32); }
+    }
+    /* Monogram / emblem inside seal */
+    .env-wax-seal svg {
+      width: 60%;
+      height: 60%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      opacity: 0.55;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.4));
+    }
+
+    /* "Tap to open" hint label */
+    .env-open-hint {
+      position: absolute;
+      bottom: -34px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      opacity: 0.7;
+      animation: hintBlink 2.2s ease-in-out infinite;
+    }
+    @keyframes hintBlink {
+      0%,100% { opacity: 0.7; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ── Envelope flip wrapper ── */
+    .letter-envelope {
+      perspective: 1200px;
+    }
+
+    /* Flip animation on the entire envelope */
+    .letter-envelope.opening .mailbox-closed {
+      animation: envelopeFlipOut 0.55s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+    @keyframes envelopeFlipOut {
+      0%   { opacity:1; transform: rotateY(0deg) scale(1); }
+      50%  { opacity:0.4; transform: rotateY(-90deg) scale(0.85); }
+      100% { opacity:0; transform: rotateY(-90deg) scale(0.75); pointer-events:none; }
+    }
+
+    /* ── Parchment Paper (opened state) ── */
+    .letter-opened {
+      display: none;
+      position: relative;
+      flex-direction: column;
+      /* Dark maroon background within the card panel */
+      background: #1a0505;
+      border-radius: 10px;
+      padding: 0;
+      overflow: hidden;
+    }
+    .letter-opened.show { display: flex; }
+
+    /* The dark scene wrapper */
+    .parchment-scene {
+      background: linear-gradient(160deg, #1c0607 0%, #2a0a0c 50%, #110304 100%);
+      border-radius: 10px;
+      padding: 28px 18px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: parchmentReveal 0.6s 0.45s cubic-bezier(0.4,0,0.2,1) both;
+    }
+    @keyframes parchmentReveal {
+      from { opacity:0; transform: rotateY(90deg) scale(0.8); }
+      to   { opacity:1; transform: rotateY(0deg) scale(1); }
+    }
+
+    /* Parchment paper itself */
+    .parchment-paper {
+      position: relative;
+      width: 100%;
+      /* Rough torn-edge via SVG filter + clip-path */
+      background:
+        /* subtle noise-like linear pattern for paper texture */
+        repeating-linear-gradient(0deg, transparent, transparent 38px, rgba(180,160,110,0.06) 38px, rgba(180,160,110,0.06) 39px),
+        repeating-linear-gradient(90deg, transparent, transparent 46px, rgba(160,140,90,0.04) 46px, rgba(160,140,90,0.04) 47px),
+        linear-gradient(170deg, #f9f3e2 0%, #f1e8cc 35%, #ede3c5 65%, #f5efd9 100%);
+      border-radius: 4px;
+      padding: 58px 22px 28px;
+      box-shadow:
+        0 2px 6px rgba(0,0,0,0.4),
+        0 8px 32px rgba(0,0,0,0.5),
+        inset 0 0 30px rgba(160,130,70,0.12);
+    }
+
+    /* Wax Seal on top of paper */
+    .parchment-wax-seal {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 38% 35%, rgba(255,255,255,0.18) 0%, transparent 55%),
+        radial-gradient(circle at 65% 68%, rgba(0,0,0,0.14) 0%, transparent 45%),
+        radial-gradient(ellipse at center, #b5241c 0%, #8f1810 50%, #6e120b 100%);
+      box-shadow:
+        0 2px 6px rgba(0,0,0,0.5),
+        0 8px 22px rgba(0,0,0,0.45),
+        inset 0 1px 2px rgba(255,160,140,0.2),
+        inset 0 -2px 5px rgba(0,0,0,0.35);
+    }
+    .parchment-wax-seal svg {
+      position: absolute;
+      width: 58%; height: 58%;
+      top:50%; left:50%;
+      transform: translate(-50%,-50%);
+      opacity: 0.5;
+    }
+
+    /* Letter text body inside parchment */
+    .letter-body {
+      max-height: 310px;
+      overflow-y: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .letter-body::-webkit-scrollbar { display: none; }
+    .letter-body p {
+      font-family: var(--font-serif);
+      font-size: 0.84rem;
+      line-height: 1.95;
+      color: #3d2b14;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+    .letter-body p:last-child { margin-bottom: 0; }
+    .letter-body em {
+      font-style: italic;
+      color: #6b3a1f;
+    }
+    .letter-body .letter-sign {
+      text-align: right;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: #7a4a22;
+      font-size: 0.88rem;
+      margin-top: 20px;
+      border-top: 1px solid rgba(140,100,50,0.25);
+      padding-top: 12px;
+    }
+    .letter-scroll-hint {
+      text-align: center;
+      padding: 10px 0 0;
+      font-size: 0.7rem;
+      color: rgba(240,220,190,0.5);
+      letter-spacing: 0.05em;
+    }
+
+    /* Burn-in Reveal Animation */
+    .burn-image {
+      opacity: 0;
+      clip-path: circle(0% at 50% 50%);
+      filter: sepia(100%) hue-rotate(-25deg) saturate(500%) brightness(250%) contrast(200%) blur(8px);
+      transform: scale(1.1) rotate(2deg);
+      transition: opacity 0.5s ease-out,
+                  clip-path 2.5s cubic-bezier(0.25, 1, 0.5, 1),
+                  filter 3s cubic-bezier(0.25, 1, 0.5, 1),
+                  transform 3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .burn-image.show {
+      opacity: 1;
+      clip-path: circle(150% at 50% 50%);
+      filter: sepia(0%) hue-rotate(0deg) saturate(100%) brightness(100%) contrast(100%) blur(0px);
+      transform: scale(1) rotate(0deg);
+    }
+
+    /* Memory Card — Staggered Photo Reveal */
+    .memory-item {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .memory-item.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .memory-footer {
+      opacity: 0 !important;
+      transition: opacity 0.8s ease;
+    }
+    .memory-footer.show {
+      opacity: 0.6 !important;
+    }
+
+    /* Responsive */
+    @media (max-width:480px) {
+      .main-container { padding:20px 16px; align-items:flex-start; padding-top:max(60px,env(safe-area-inset-top)); }
+      .card { padding:36px 24px 30px; border-radius:20px; }
+      .card-ornament { left:24px; right:24px; }
+      .card-title { font-size:1.6rem; }
+      .ketupat-1 { width:60px; }
+      .ketupat-3,.ketupat-5 { display:none; }
+    }
+    @media (max-height:680px) {
+      .ketupat-center { width:54px; height:54px; }
+      .card { padding:30px 28px 22px; }
+      .card-body { font-size:.88rem; line-height:1.75; }
+      .form-textarea { min-height:72px; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .ketupat,.ketupat-center,.sparkle,.music-btn.playing .music-icon { animation:none; }
+      .card.active { animation:none; opacity:1; transform:none; }
+      .card.exit   { animation:none; opacity:0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Welcome Modal -->
+  <div class="welcome-modal" id="welcomeModal">
+    <div class="welcome-content">
+      <h2 class="welcome-title">Halo! <em>👋</em></h2>
+      <p class="welcome-desc">Ada alunan musik yang menemani pesan ini.<br>Pastikan volume perangkatmu <br>sudah menyala ya.</p>
+      <button class="btn-open" id="btnOpen">Buka Surat</button>
+    </div>
+  </div>
+
+  <!-- Global Marquee (Running Text) -->
+  <div class="global-marquee" id="globalMarquee">
+    <div class="global-marquee-text">i love you in every universe</div>
+  </div>
+
+  <div class="bg-pattern"></div>
+
+  <div class="deco-layer" aria-hidden="true">
+    <div class="ketupat ketupat-1">
+      <svg viewBox="0 0 60 60" fill="none"><rect x="30" y="3" width="38" height="38" rx="4" transform="rotate(45 30 30)" stroke="#8B7355" stroke-width="1.5" opacity=".5"/><rect x="30" y="10" width="26" height="26" rx="3" transform="rotate(45 30 30)" stroke="#8B7355" stroke-width="1" opacity=".3"/><line x1="30" y1="5" x2="30" y2="55" stroke="#8B7355" stroke-width=".8" opacity=".2"/><line x1="5" y1="30" x2="55" y2="30" stroke="#8B7355" stroke-width=".8" opacity=".2"/></svg>
+    </div>
+    <div class="ketupat ketupat-2">
+      <svg viewBox="0 0 60 60" fill="none"><rect x="30" y="3" width="38" height="38" rx="4" transform="rotate(45 30 30)" stroke="#B8977E" stroke-width="1.5" opacity=".4"/><rect x="30" y="10" width="26" height="26" rx="3" transform="rotate(45 30 30)" stroke="#B8977E" stroke-width="1" opacity=".25"/></svg>
+    </div>
+    <div class="ketupat ketupat-3">
+      <svg viewBox="0 0 80 80" fill="none"><rect x="40" y="5" width="50" height="50" rx="5" transform="rotate(45 40 40)" stroke="#6B7C5C" stroke-width="1.5" opacity=".4"/><rect x="40" y="13" width="34" height="34" rx="4" transform="rotate(45 40 40)" stroke="#6B7C5C" stroke-width="1" opacity=".2"/><line x1="40" y1="6" x2="40" y2="74" stroke="#6B7C5C" stroke-width=".8" opacity=".15"/><line x1="6" y1="40" x2="74" y2="40" stroke="#6B7C5C" stroke-width=".8" opacity=".15"/></svg>
+    </div>
+    <div class="ketupat ketupat-4">
+      <svg viewBox="0 0 50 50" fill="none"><rect x="25" y="3" width="32" height="32" rx="3" transform="rotate(45 25 25)" stroke="#C9A96E" stroke-width="1.2" opacity=".45"/><rect x="25" y="9" width="22" height="22" rx="2" transform="rotate(45 25 25)" stroke="#C9A96E" stroke-width=".8" opacity=".28"/></svg>
+    </div>
+    <div class="ketupat ketupat-5">
+      <svg viewBox="0 0 70 70" fill="none"><rect x="35" y="4" width="44" height="44" rx="5" transform="rotate(45 35 35)" stroke="#8B7355" stroke-width="1.3" opacity=".35"/></svg>
+    </div>
+  </div>
+
+  <div class="sparkles" aria-hidden="true">
+    <span class="sparkle s1">✦</span><span class="sparkle s2">✦</span>
+    <span class="sparkle s3">✧</span><span class="sparkle s4">✦</span>
+    <span class="sparkle s5">✧</span><span class="sparkle s6">✦</span>
+  </div>
+
+  <button class="music-btn" id="musicBtn" aria-label="Toggle musik">
+    <span class="music-icon" id="musicIcon">♪</span>
+  </button>
+
+  <main class="main-container">
+    <div class="card-wrapper">
+
+      <div class="progress-dots" id="progressDots">
+        <!-- Akan di-generate otomatis oleh Javascript saat loading -->
+      </div>
+
+      <!-- CARD 1 — Pembuka -->
+      <article class="card active" id="card-0">
+        <h1 class="card-title">Minal Aidzin<br><em>Wal Faizin</em></h1>
+        <div class="divider"><span class="divider-ornament">⬥</span></div>
+
+        <!-- Foto Utama 1 -->
+        <div class="burn-image" style="position: relative; width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid rgba(201,169,110,.4); box-shadow: 0 4px 12px rgba(45,74,53,.08); aspect-ratio: 4/3; margin-bottom: 20px;">
+          <img src="foto-pembuka.jpeg" alt="Memori Pertama" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1510007553199-73e4334335c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'">
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 10px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: #fff; font-size: 0.75rem; text-align: center; opacity: 0.9;">you’ve had that charm since day one.</div>
+        </div>
+
+        <p class="card-body">
+          To my great lost love,
+          <br>
+          <strong>Haerunnisa Fitria Rahmah</strong>
+        </p>
+        
+        <div class="card-ornament bottom"></div>
+      </article>
+
+      <!-- CARD 2 — Lucu -->
+      <article class="card" id="card-1">
+        <div class="card-ornament top"></div>
+        <div class="card-eyebrow">untuk haerunnisa</div>
+        <div class="divider"><span class="divider-ornament">⬥</span></div>
+
+        <!-- Foto Kedua (di atas teks) -->
+        <div class="burn-image" style="position: relative; width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid rgba(201,169,110,.4); box-shadow: 0 4px 12px rgba(45,74,53,.08); aspect-ratio: 4/3; margin-bottom: 20px;">
+          <img src="foto-kedua.jpeg" alt="Memori Kedua" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1494236581341-7d38b2e7d824?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'">
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 10px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: #fff; font-size: 0.75rem; text-align: center; opacity: 0.9;">aku izin ambil dari sorotan ya, maaf</div>
+        </div>
+
+        <p class="card-body">
+          pada sela-sela hatiku parasmu<br>
+          selalu menjadi debu paling tua<br>
+          didalam dalamku<br>
+          <br>
+          meskipun pandanganku rabun <br>
+          menggelut, kau adalah satu yang <br>
+          selalu jelas kulihat hadirnya <br>
+        </p>
+        <div class="card-ornament bottom"></div>
+      </article>
+
+      <article class="card" id="card-1">
+        <div class="card-ornament top"></div>
+        <div class="card-eyebrow">hai, icaa</div>
+        <h2 class="card-title">Kita, waktu itu<br><em></em></h2>
+        <div class="divider"><span class="divider-ornament">⬥</span></div>
+        <p class="card-body">
+          Terlepas dari bagaimana caranya kita  <br>
+          berpisah saat itu, aku hanya ingin berterimakasih <br>
+          karena kamu pernah menjadi satu satunya  <br>
+          orang yang bertahan selama itu dengan <br>
+          segala baik dan buruknya aku... <br>
+          bahagia selalu semestaku <br>
+          i loved you.
+          <br>
+          <br>
+          
+        </p>
+        <div class="card-ornament bottom"></div>
+      </article>
+
+      <!-- CARD 3 — Nostalgia -->
+      <article class="card" id="card-2" style="padding-bottom: 16px; padding-top: 36px;">
+        <div class="card-ornament top"></div>
+        <div class="card-eyebrow">for me</div>
+        <h2 class="card-title" style="margin-bottom:12px;">Ada hal-hal<br><em>yang tak pernahku hapus.</em></h2>
+        <div class="divider" style="margin-bottom: 8px;"><span class="divider-ornament">⬥</span></div>
+
+        <div class="memories-container">
+          <div class="flight-path-container">
+            <div class="flight-path">
+              <div class="flight-progress" id="flightProgress"></div>
+              <div class="airplane-icon" id="airplaneIcon"></div>
+            </div>
+          </div>
+          <div class="memories-scroll-area" id="memoriesScroll">
+            <p class="card-body" style="margin-bottom: 24px; text-align: left; padding-left: 8px;">
+              aku selalu ingat bagaimana <br>kita menjadi kita<br>
+              walau pada akhirnya <br>kita tidak bersama lagi<br>
+              dan satu dua momen<br>
+              yang diam-diam masih<br>
+              kusimpan letaknya di kenangan.
+              <br><br><span style="font-size:0.8em; opacity:0.6;">(scroll ke bawah)</span>
+            </p>
+            <div class="memory-list">
+              <div class="memory-item">
+                <img src="foto-custom-1.jpeg" alt="Kenangan 1" class="memory-img" onerror="this.src='https://images.unsplash.com/photo-1518002171953-a080ee817e1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'">
+                <div class="memory-caption">aku tau kamu suka melukis, <br> makannya aku ajak kamu melukis</div>
+              </div>
+              <div class="memory-item">
+                <img src="foto-custom-2.jpeg" alt="Kenangan 2" class="memory-img" onerror="this.src='https://images.unsplash.com/photo-1494236581341-7d38b2e7d824?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'">
+                <div class="memory-caption">aku bener bener payah dalam hal mewarnai.</div>
+              </div>
+              <div class="memory-item">
+                <img src="foto-custom-3.jpeg" alt="Kenangan 3" class="memory-img" onerror="this.src='https://images.unsplash.com/photo-1506744626753-1fa7604ed429?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'">
+                <div class="memory-caption">ini lucunya kebangetan sih wkkwwk</div>
+              </div>
+              <div class="memory-item">
+                <img src="foto-custom-4.jpeg" alt="Kenangan 4" class="memory-img" onerror="this.src='https://images.unsplash.com/photo-1476820865390-c52aeafa985d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'">
+                <div class="memory-caption">lucu banget kamu disini kaya anak tk</div>
+              </div>
+            </div>
+            <p class="card-body small memory-footer" style="margin-top:1.5rem;margin-bottom:1.5rem;opacity:0.6;text-align:center;">Maaf dulu belum bisa <br> memberikan yang terbaik</p>
+            <p class="card-body small memory-footer" style="margin-top:1.5rem;margin-bottom:1.5rem;opacity:0.6;text-align:center;">Terimakasih sudah pernah hadir ya ca..</p>
+          </div>
+        </div>
+
+        <div class="card-ornament bottom"></div>
+      </article>
+
+      <!-- CARD 3.5 — Growing Older -->
+      <article class="card" id="card-grow">
+        <div class="card-ornament top"></div>
+        <div class="card-eyebrow">and now</div>
+        <h2 class="card-title" style="font-size:clamp(1.6rem,4vw,2.2rem);">We get older<br><em>and realize...</em></h2>
+        <div class="divider"><span class="divider-ornament">⬥</span></div>
+
+        <!-- Foto Tambahan -->
+        <div style="position: relative; width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid rgba(201,169,110,.4); box-shadow: 0 4px 12px rgba(45,74,53,.08); aspect-ratio: 4/3; margin-bottom: 20px;">
+          <img src="foto-kedewasaan.jpeg" alt="We get older" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9);" onerror="this.src='https://images.unsplash.com/photo-1510007553199-73e4334335c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'">
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 10px; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: #fff; font-size: 0.75rem; text-align: center; opacity: 0.9;">this is my favorite pict of us</div>
+        </div>
+
+        <p class="card-body" style="font-size:0.9rem;">
+          Bahwa tidak semua yang kita cintai<br>
+          ditakdirkan untuk tinggal.<br>
+          Beberapa hanya datang untuk hadir <br>
+          mengisi ruang yang sempat kosong, <br>
+          terimakasih sudah pernah <br> mengisi ruang itu cecintaku<br>
+        </p>
+        <div class="card-ornament bottom"></div>
+      </article>
+
+      <!-- CARD 4 — Realita -->
+      <article class="card" id="card-3">
+        <div class="card-ornament top"></div>
+        <div class="card-eyebrow">tapi ya...</div>
+        <h2 class="card-title">Sekarang kita<br><em>sudah berbeda jalan.</em></h2>
+        <div class="divider"><span class="divider-ornament">⬥</span></div>
+        <p class="card-body">
+          dan hari ini aku belajar sesuatu bahwa cinta<br>
+          bukan tentang memiliki, tapi tentang memberi <br>
+          ruang bagi seseorang untuk menemukan kebahagiaannya,<br>
+          meski itu berarti aku harus belajar berjalan<br>
+          sendirian lagi. dan itu bukan hal yang buruk.<br>
+          Hanya saja, di hari yang fitri ini,<br>
+          aku masih ingin mendoakanmu<br>
+          <em>dari jarak yang tepat.</em>
+        </p>
+        <p class="card-note">Jarak yang cukup untuk mengikhlaskan mu.</p>
+        <div class="card-ornament bottom"></div>
+      </article>
+
+      <!-- CARD 5 — Penutup -->
+      <article class="card" id="card-4">
+        <div class="card-ornament top"></div>
+        <div class="card-eyebrow">my wish</div>
+        <h2 class="card-title">Semoga hidupmu<br><em>lebih baik dari sebelumnya.</em></h2>
+        <div class="divider"><span class="divider-ornament">⬥</span></div>
+        <p class="card-body">
+          Semoga kamu bahagia,<br>
+          sehat, dan dikelilingi<br>
+          orang-orang yang layak<br>
+          <em>menerima versi terbaikmu.</em>
+        </p>
+        <p class="card-body small" style="margin-top:1.5rem;">Taqabbalallahu minna wa minkum. 🌙</p>
+        <p class="signature">— you were my favorite hello<br>and my harderst goodbye</p>
+        <div class="card-ornament bottom"></div>
+      </article>
+
+      <!-- CARD 5.5 — Photobooth -->
+      <article class="card pb-card" id="card-pb" style="padding-bottom: 24px; padding-top: 36px; background: var(--cream-light); overflow: visible;">
+        <div class="card-ornament top"></div>
+
+        <!-- 3D Floating Decorations -->
+        <span class="pb-deco d1">✨</span>
+        <span class="pb-deco d2">🌙</span>
+        <span class="pb-deco d3">⭐</span>
+        <span class="pb-deco d4">✨</span>
+        <span class="pb-deco d6">⭐</span>
+        <span class="pb-deco d7">🌙</span>
+        <span class="pb-deco d8">✨</span>
+
+        <!-- Corner Ornaments -->
+        <svg class="pb-corner tl" viewBox="0 0 28 28" fill="none"><path d="M2 26 C2 12, 12 2, 26 2" stroke="#C9A96E" stroke-width="2" fill="none"/><circle cx="26" cy="2" r="2" fill="#C9A96E"/></svg>
+        <svg class="pb-corner tr" viewBox="0 0 28 28" fill="none"><path d="M2 26 C2 12, 12 2, 26 2" stroke="#C9A96E" stroke-width="2" fill="none"/><circle cx="26" cy="2" r="2" fill="#C9A96E"/></svg>
+        <svg class="pb-corner bl" viewBox="0 0 28 28" fill="none"><path d="M2 26 C2 12, 12 2, 26 2" stroke="#C9A96E" stroke-width="2" fill="none"/><circle cx="26" cy="2" r="2" fill="#C9A96E"/></svg>
+        <svg class="pb-corner br" viewBox="0 0 28 28" fill="none"><path d="M2 26 C2 12, 12 2, 26 2" stroke="#C9A96E" stroke-width="2" fill="none"/><circle cx="26" cy="2" r="2" fill="#C9A96E"/></svg>
+
+        <div class="card-eyebrow">photobooth</div>
+        <h2 class="card-title" style="margin-bottom:12px;">Memory</em></h2>
+        <div class="divider" style="margin-bottom: 16px;"><span class="divider-ornament">⬥</span></div>
+
+        <!-- Photobooth Scattered Polaroids -->
+        <div style="width: 100%; padding: 0 4px; display: flex; justify-content: center;">
+          <div class="pb-strip">
+            
+            <!-- Vinyl Record Back -->
+            <div class="pb-vinyl">
+              <div class="pb-vinyl-label">
+                Memories<br>Side A
+              </div>
+            </div>
+
+            <!-- Photo 1 -->
+            <div class="pb-polaroid p1">
+              <div class="pb-photo">
+                <img src="foto-custom-1.jpeg" alt="Photo 1" onerror="this.src='https://images.unsplash.com/photo-1518002171953-a080ee817e1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'">
+              </div>
+              <div class="pb-label">aku tau kamu suka melukis, <br> makannya aku ajak kamu melukis</div>
+            </div>
+
+            <!-- Photo 2 -->
+            <div class="pb-polaroid p2">
+              <div class="pb-photo">
+                <img src="foto-custom-2.jpeg" alt="Photo 2" onerror="this.src='https://images.unsplash.com/photo-1494236581341-7d38b2e7d824?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'">
+              </div>
+              <div class="pb-label">aku bener bener payah dalam hal mewarnai.</div>
+            </div>
+
+            <!-- Photo 3 -->
+            <div class="pb-polaroid p3">
+              <div class="pb-photo">
+                <img src="foto-custom-3.jpeg" alt="Photo 3" onerror="this.src='https://images.unsplash.com/photo-1506744626753-1fa7604ed429?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'">
+              </div>
+              <div class="pb-label">ini lucunya kebangetan sih wkkwwk</div>
+            </div>
+
+            <!-- Photo 4 -->
+            <div class="pb-polaroid p4">
+              <div class="pb-photo">
+                <img src="foto-custom-4.jpeg" alt="Photo 4" onerror="this.src='https://images.unsplash.com/photo-1476820865390-c52aeafa985d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'">
+              </div>
+              <div class="pb-label">lucu banget kamu disini kaya anak tk</div>
+            </div>
+
+          </div>
+        </div>
+
+        <p class="card-body small" style="opacity: 0.5; margin-top: 1.5rem;">ketuk foto untuk melihat lebih dekat</p>
+        <div class="card-ornament bottom"></div>
+      </article>
+
+      <!-- CARD — Kotak Surat -->
+      <article class="card" id="card-letter" style="padding: 36px 28px 28px; cursor: default;">
+        <div class="card-ornament top"></div>
+        <br>
+        <div class="card-eyebrow">surat kecil untukmu</div>
+        <div class="divider" style="margin-bottom: 14px;"><span class="divider-ornament">⬥</span></div>
+
+        <div class="letter-envelope">
+          <!-- Vintage Envelope Cover (clickable) -->
+          <div class="mailbox-closed" id="mailboxClosed" title="Ketuk untuk buka surat">
+
+            <!-- Bottom triangle flap -->
+            <div class="env-flap-bottom"></div>
+
+            <!-- Side flaps -->
+            <div class="env-flap-left"></div>
+            <div class="env-flap-right"></div>
+
+            <!-- Top curved flap -->
+            <div class="env-flap-top">
+              <svg viewBox="0 0 300 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,0 L300,0 L300,10 Q150,130 0,10 Z" fill="#dccfa8"/>
+                <path d="M0,0 L300,0 L300,10 Q150,130 0,10 Z" fill="url(#flapGrad)"/>
+                <defs>
+                  <linearGradient id="flapGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#e8dcbf"/>
+                    <stop offset="100%" stop-color="#c9bda0"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+
+            <!-- Wax Seal -->
+            <div class="env-wax-seal">
+              <!-- Floral / rose emblem carved into seal -->
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                <!-- petals -->
+                <ellipse cx="50" cy="24" rx="7" ry="14" fill="rgba(255,255,255,0.55)" transform="rotate(0 50 50)"/>
+                <ellipse cx="50" cy="24" rx="7" ry="14" fill="rgba(255,255,255,0.55)" transform="rotate(45 50 50)"/>
+                <ellipse cx="50" cy="24" rx="7" ry="14" fill="rgba(255,255,255,0.55)" transform="rotate(90 50 50)"/>
+                <ellipse cx="50" cy="24" rx="7" ry="14" fill="rgba(255,255,255,0.55)" transform="rotate(135 50 50)"/>
+                <ellipse cx="50" cy="24" rx="7" ry="14" fill="rgba(255,255,255,0.55)" transform="rotate(180 50 50)"/>
+                <ellipse cx="50" cy="24" rx="7" ry="14" fill="rgba(255,255,255,0.55)" transform="rotate(225 50 50)"/>
+                <ellipse cx="50" cy="24" rx="7" ry="14" fill="rgba(255,255,255,0.55)" transform="rotate(270 50 50)"/>
+                <ellipse cx="50" cy="24" rx="7" ry="14" fill="rgba(255,255,255,0.55)" transform="rotate(315 50 50)"/>
+                <circle cx="50" cy="50" r="10" fill="rgba(255,255,255,0.6)"/>
+              </svg>
+            </div>
+
+            <!-- Tap hint -->
+            <div class="env-open-hint">ketuk untuk buka 💌</div>
+
+          </div>
+
+          <!-- Letter / Parchment (hidden until clicked) -->
+          <div class="letter-opened" id="letterOpened">
+
+            <!-- SVG filter for rough paper edges -->
+            <svg width="0" height="0" style="position:absolute">
+              <defs>
+                <filter id="roughEdge" x="-5%" y="-5%" width="110%" height="110%">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="3" result="noise"/>
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+                </filter>
+              </defs>
+            </svg>
+
+            <div class="parchment-scene">
+              <div class="parchment-paper">
+
+                <!-- Wax seal on top of paper -->
+                <div class="parchment-wax-seal">
+                  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+                    <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                    <ellipse cx="50" cy="24" rx="7" ry="14" fill="rgba(255,255,255,0.55)" transform="rotate(0 50 50)"/>
+                    <ellipse cx="50" cy="24" rx="7" ry="14" fill="rgba(255,255,255,0.55)" transform="rotate(45 50 50)"/>
+                    <ellipse cx="50" cy="24" rx="7" ry="14" fill="rgba(255,255,255,0.55)" transform="rotate(90 50 50)"/>
+                    <ellipse cx="50" cy="24" rx="7" ry="14" fill="rgba(255,255,255,0.55)" transform="rotate(135 50 50)"/>
+                    <ellipse cx="50" cy="24" rx="7" ry="14" fill="rgba(255,255,255,0.55)" transform="rotate(180 50 50)"/>
+                    <ellipse cx="50" cy="24" rx="7" ry="14" fill="rgba(255,255,255,0.55)" transform="rotate(225 50 50)"/>
+                    <ellipse cx="50" cy="24" rx="7" ry="14" fill="rgba(255,255,255,0.55)" transform="rotate(270 50 50)"/>
+                    <ellipse cx="50" cy="24" rx="7" ry="14" fill="rgba(255,255,255,0.55)" transform="rotate(315 50 50)"/>
+                    <circle cx="50" cy="50" r="10" fill="rgba(255,255,255,0.6)"/>
+                  </svg>
+                </div>
+
+                <!-- Letter content -->
+                <div class="letter-body">
+                  <p>
+                    First of all, aku mau ucapin sekali lagi — <em>Minal Aidzin Wal Faizin.</em><br>
+                    Maafin aku ya, atas apapun yang pernah aku lakuin di masa lalu.
+                  </p>
+                  <p>
+                    Titip salam juga buat Ayah, Bunda, sama Aa — <em>minal aidzin juga ya...</em>
+                  </p>
+                  <p>
+                    It has been 4 years, ca.<br>
+                    Kalo boleh jujur sama perasaan sendiri, rasanya naif banget kalau bilang aku udah ngelupain kamu. Jujur, aku kangen sama kamu. Tapi ya, mau bagaimana lagi — mungkin kamu juga udah punya yang baru lagi sekarang.
+                  </p>
+                  <p>
+                    <em>But that's okay.</em> Cinta ga selalu harus memiliki. Namun jika kamu masih sendiri lagi — bisakah kita seperti dahulu kembali? Memperbaiki apa yang sudah aku hancurkan? <em>Berikan aku kesempatan kembali?</em>
+                  </p>
+                  <p>
+                    I don't know why Allah ga mencabut semua rasa ini ke kamu. <em>Everyday when I meet girls, my heart feels like cheating on you.</em>
+                  </p>
+                  <p>
+                    Oh iya, maaf ya kemarin aku lewat depan rumah kamu lagi. Jujur masih kangen, hehehehe.
+                  </p>
+                  <p>
+                    Aku ga nyesel pernah kenal dan sayang sama kamu. Kamu adalah orang yang merubah aku sejauh ini — dan itu bagus. Tanpa kenal kamu, mungkin aku masih jadi orang yang hilang arah dan tanpa tujuan. <em>Meeting you was the best mistake I ever done.</em>
+                  </p>
+                  <p class="letter-sign">
+                    I love you, ca. I wish I could fix all the mistakes I ever did.<br><br>
+                    Once again, love you —<br>
+                    <strong>my iris.</strong>
+                  </p>
+                </div>
+              </div>
+              <div class="letter-scroll-hint">↑ scroll untuk baca selengkapnya ↑</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card-ornament bottom"></div>
+      </article>
+
+      <!-- CARD — Reply Form -->
+      <article class="card form-card" id="card-5">
+        <div class="card-ornament top"></div>
+        <div class="card-eyebrow">berikan sepatah dua kata untuk aku</div>
+        <h2 class="card-title" style="font-size:clamp(1.5rem,4vw,2rem);margin-bottom:8px;">
+          Kalau kamu<br><em>ingin berkata sesuatu —</em>
+        </h2>
+        <p class="card-subtitle">
+          mungkin untuk menjawab semua pertanyaan aku?<br>
+          atau pesan buat aku kedepannya.
+        </p>
+        <p class="letter-sign">
+          aku akan baca semuanya,<br> dengan senang hati.
+        </p>
+        <br>
+
+        <article></article>
+        <form class="reply-form" id="replyForm" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="inputMsg">Pesanmu</label>
+            <textarea class="form-textarea" id="inputMsg" name="message"
+              placeholder="tulis apa yang ingin kamu sampaikan..." required></textarea>
+          </div>
+
+          <div class="form-status" id="formStatus"></div>
+
+          <button class="btn-send" id="btnSend" type="submit">
+            <span class="send-label">Kirim Pesan ✉</span>
+            <span class="send-spinner"></span>
+          </button>
+        </form>
+
+        <div class="card-ornament bottom"></div>
+      </article>
+
+      <!-- Nav -->
+      <div class="nav-area">
+        <button class="btn-prev" id="prevBtn" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="btn-next" id="nextBtn">
+          <span>Lanjut</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+
+      <p class="tap-hint" id="tapHint">ketuk layar untuk melanjutkan</p>
+    </div>
+  </main>
+
+  <audio id="bgMusic" loop preload="auto">
+    <source src="musik.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script>
+  (function () {
+    'use strict';
+
+    /* Init EmailJS */
+    emailjs.init(EJS_PUBLIC_KEY);
+
+    const cards = Array.from(document.querySelectorAll('.card'));
+    const TOTAL = cards.length;
+    const FORM_SLIDE = TOTAL - 1;
+
+    let current = 0;
+    let animating = false;
+    let playing = false;
+
+    // Generate dots secara otomatis sesuai jumlah card
+    const progressDotsContainer = document.getElementById('progressDots');
+    if (progressDotsContainer) {
+      progressDotsContainer.innerHTML = cards.map((_, i) => `<span class="dot ${i===0?'active':''}" data-index="${i}"></span>`).join('');
+    }
+    const dots = Array.from(document.querySelectorAll('.dot'));
+    const prevBtn   = document.getElementById('prevBtn');
+    const nextBtn   = document.getElementById('nextBtn');
+    const tapHint   = document.getElementById('tapHint');
+    const musicBtn  = document.getElementById('musicBtn');
+    const musicIcon = document.getElementById('musicIcon');
+    const bgMusic   = document.getElementById('bgMusic');
+    const replyForm = document.getElementById('replyForm');
+    const inputName = document.getElementById('inputName');
+    const inputMsg  = document.getElementById('inputMsg');
+    const btnSend   = document.getElementById('btnSend');
+    const formStatus= document.getElementById('formStatus');
+
+    /* ══════════════════════════════════════
+       TYPEWRITER ENGINE
+       Handles plain text AND HTML tags
+       (em, br, etc) without breaking markup
+    ══════════════════════════════════════ */
+    const TW_SPEED = 32; // ms per character (lower = faster)
+    let twTimers   = []; // track all active timers so we can cancel on fast skip
+
+    function cancelTypewriters() {
+      twTimers.forEach(id => clearInterval(id));
+      twTimers = [];
+      document.querySelectorAll('.burn-image').forEach(el => el.classList.remove('show'));
+      document.querySelectorAll('.memory-item').forEach(el => el.classList.remove('show'));
+      document.querySelectorAll('.memory-footer').forEach(el => el.classList.remove('show'));
+    }
+
+    /**
+     * Type out one element's innerHTML, character by character.
+     * HTML tags are output instantly (no typing through <em>, <br> etc).
+     * Returns estimated total duration in ms.
+     */
+    function typewriteEl(el, startDelay, speed) {
+      // Store original HTML once
+      if (!el.dataset.twOriginal) {
+        el.dataset.twOriginal = el.innerHTML;
+      }
+      const html = el.dataset.twOriginal;
+
+      // Count visible characters (skip HTML tags for duration estimate)
+      const visibleLen = html.replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, ' ').length;
+
+      el.innerHTML = '';
+      el.style.opacity = '1';
+
+      let i = 0;
+      let output = '';
+
+      const timerId = { start: null, interval: null };
+
+      timerId.start = setTimeout(() => {
+        timerId.interval = setInterval(() => {
+          if (i >= html.length) {
+            clearInterval(timerId.interval);
+            el.innerHTML = html; // ensure final state is perfect
+            return;
+          }
+
+          // If we hit an HTML tag, consume the whole tag at once
+          if (html[i] === '<') {
+            const tagEnd = html.indexOf('>', i);
+            if (tagEnd !== -1) {
+              output += html.slice(i, tagEnd + 1);
+              i = tagEnd + 1;
+            } else {
+              output += html[i++];
+            }
+          }
+          // If we hit an HTML entity (e.g. &amp;), consume whole entity
+          else if (html[i] === '&') {
+            const entEnd = html.indexOf(';', i);
+            if (entEnd !== -1 && entEnd - i < 10) {
+              output += html.slice(i, entEnd + 1);
+              i = entEnd + 1;
+            } else {
+              output += html[i++];
+            }
+          }
+          else {
+            output += html[i++];
+          }
+
+          el.innerHTML = output;
+        }, speed);
+
+        twTimers.push(timerId.interval);
+      }, startDelay);
+
+      twTimers.push(timerId.start);
+
+      // Return estimated finish time for chaining
+      return startDelay + visibleLen * speed;
+    }
+
+    /**
+     * Run typewriter on all animated elements in a card.
+     * Selectors are processed in order with staggered delays.
+     */
+    function runTypewritersInCard(card) {
+      cancelTypewriters();
+
+      const BASE_DELAY = 500;
+      const GAP        = 120; // extra pause between elements
+      const SPEED      = TW_SPEED;
+      let delay = BASE_DELAY;
+
+      // 1. Ketik Judul dkk (sebelum foto)
+      ['.card-eyebrow', '.card-title'].forEach(sel => {
+        card.querySelectorAll(sel).forEach(el => {
+          if (el.closest('.reply-form')) return;
+          const duration = typewriteEl(el, delay, SPEED);
+          delay = duration + GAP;
+        });
+      });
+
+      // 2. Tampilkan gambar setelah judul dengan efek burn-reveal
+      const images = card.querySelectorAll('.burn-image');
+      if (images.length > 0) {
+        const timerId = setTimeout(() => {
+          images.forEach(img => img.classList.add('show'));
+        }, delay);
+        twTimers.push(timerId);
+        
+        // Beri jeda 1.2 detik agar burn-reveal terlihat magis sebelum teks bawah diketik
+        delay += 1200;
+      }
+
+      // 3. Ketik isi teks lainnya
+      ['.card-body', '.card-body.small', '.card-note', '.card-subtitle', '.signature'].forEach(sel => {
+        card.querySelectorAll(sel).forEach(el => {
+          if (el.closest('.reply-form')) return;
+          const duration = typewriteEl(el, delay, SPEED);
+          delay = duration + GAP;
+        });
+      });
+    }
+
+    /**
+     * Special sequencer for the memory card (card-2):
+     * 1. Typewrite intro paragraph
+     * 2. Show each photo one-by-one (700ms apart)
+     * 3. Fade in footer paragraphs
+     */
+    function runMemoryCardAnimation(card) {
+      cancelTypewriters();
+      const SPEED = TW_SPEED;
+      const GAP   = 120;
+      let delay   = 500;
+
+      // Step 1: typewrite intro paragraph
+      const introPara = card.querySelector('.memories-scroll-area > .card-body');
+      if (introPara) {
+        const dur = typewriteEl(introPara, delay, SPEED);
+        delay = dur + GAP + 400;
+      }
+
+      // Step 2: photos one by one
+      const items = card.querySelectorAll('.memory-item');
+      const PHOTO_GAP = 800;
+      items.forEach((item, i) => {
+        const tid = setTimeout(() => item.classList.add('show'), delay + i * PHOTO_GAP);
+        twTimers.push(tid);
+      });
+      delay += items.length * PHOTO_GAP + 600;
+
+      // Step 3: fade in footer text
+      card.querySelectorAll('.memory-footer').forEach(el => {
+        const tid = setTimeout(() => el.classList.add('show'), delay);
+        twTimers.push(tid);
+        delay += 500;
+      });
+    }
+
+    /* ── Slide ── */
+    function goTo(target) {
+      if (animating || target === current || target < 0 || target >= TOTAL) return;
+      animating = true;
+
+      cancelTypewriters();
+
+      cards[current].classList.add('exit');
+      setTimeout(() => {
+        cards[current].classList.remove('active','exit');
+        cards[current].style.display = 'none';
+
+        current = target;
+        cards[current].style.display = 'flex';
+        void cards[current].offsetWidth;
+        cards[current].classList.add('active');
+
+        updateUI();
+
+        // Start typewriter for non-form cards
+        if (current !== FORM_SLIDE) {
+          if (cards[current].id === 'card-2') {
+            runMemoryCardAnimation(cards[current]);
+          } else {
+            runTypewritersInCard(cards[current]);
+          }
+        }
+
+        setTimeout(() => { animating = false; }, 650);
+      }, 360);
+    }
+
+    function next() { current === TOTAL - 1 ? goTo(0) : goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    function updateUI() {
+      dots.forEach((d,i) => d.classList.toggle('active', i === current));
+      prevBtn.disabled = current === 0;
+
+      const isForm = current === FORM_SLIDE;
+      const isLast = current === TOTAL - 1;
+
+      nextBtn.classList.toggle('hide', isForm);
+      if (!isForm) {
+        nextBtn.querySelector('span').textContent = isLast ? 'Mulai Lagi' : 'Lanjut';
+        nextBtn.classList.toggle('done', isLast);
+      }
+
+      tapHint.style.opacity = current === 0 ? '' : '0';
+      if (!isForm) clearStatus();
+    }
+
+    /* ── Form ── */
+    function setStatus(type, msg) {
+      formStatus.className = 'form-status ' + type;
+      formStatus.textContent = msg;
+    }
+    function clearStatus() {
+      formStatus.className = 'form-status';
+      formStatus.textContent = '';
+    }
+
+    replyForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const msg = inputMsg.value.trim();
+
+      if (!msg) {
+        setStatus('error', 'Tulis pesanmu dulu ya. 🌿');
+        return;
+      }
+
+      btnSend.disabled = true;
+      btnSend.classList.add('loading');
+      clearStatus();
+
+      try {
+        await emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_ID, {
+          from_name : 'Haerunnisa',
+          message   : msg,
+        });
+        setStatus('success', 'Pesanmu sudah sampai. Makasih ya cinta');
+        replyForm.reset();
+      } catch (err) {
+        console.error('EmailJS:', err);
+        setStatus('error', 'Waduh, gagal terkirim. Coba lagi ya. 🌿');
+      } finally {
+        btnSend.disabled = false;
+        btnSend.classList.remove('loading');
+      }
+    });
+
+    replyForm.addEventListener('click', e => e.stopPropagation());
+
+    /* ── Events ── */
+    nextBtn.addEventListener('click', e => { e.stopPropagation(); next(); });
+    prevBtn.addEventListener('click', e => { e.stopPropagation(); prev(); });
+    dots.forEach((d,i) => d.addEventListener('click', e => { e.stopPropagation(); goTo(i); }));
+
+    document.body.addEventListener('click', e => {
+      if (current === FORM_SLIDE) return;
+      if (e.target.closest('.welcome-modal,.btn-next,.btn-prev,.dot,.music-btn,.reply-form,.memories-scroll-area,.letter-envelope,.pb-polaroid')) return;
+      next();
+    });
+
+    // Polaroid click-to-zoom interaction
+    document.querySelectorAll('.pb-polaroid').forEach(pol => {
+      pol.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const cardReq = pol.closest('.card');
+        
+        // If already zoomed, unzoom it
+        if (pol.classList.contains('zoomed')) {
+          pol.classList.remove('zoomed');
+          if (cardReq) cardReq.classList.remove('overlay-active');
+        } else {
+          // Unzoom any others first
+          document.querySelectorAll('.pb-polaroid.zoomed').forEach(z => z.classList.remove('zoomed'));
+          pol.classList.add('zoomed');
+          if (cardReq) cardReq.classList.add('overlay-active');
+        }
+      });
+    });
+
+    // Close zoom when clicking outside polaroids
+    document.querySelectorAll('.pb-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (card.classList.contains('overlay-active') && !e.target.closest('.pb-polaroid')) {
+          document.querySelectorAll('.pb-polaroid.zoomed').forEach(z => z.classList.remove('zoomed'));
+          card.classList.remove('overlay-active');
+          e.stopPropagation();
+        }
+      });
+    });
+
+    // Mailbox / Envelope interaction — with 3D flip animation
+    const mailboxClosed = document.getElementById('mailboxClosed');
+    const letterOpened  = document.getElementById('letterOpened');
+    if (mailboxClosed && letterOpened) {
+      mailboxClosed.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const env = mailboxClosed.closest('.letter-envelope');
+        // Phase 1: flip envelope out
+        if (env) env.classList.add('opening');
+        // Phase 2: after half the flip, show the parchment
+        setTimeout(() => {
+          mailboxClosed.style.display = 'none';
+          if (env) env.classList.remove('opening');
+          letterOpened.classList.add('show');
+        }, 500);
+      });
+      letterOpened.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    }
+
+    const memoriesScroll = document.getElementById('memoriesScroll');
+    const flightProgress = document.getElementById('flightProgress');
+    const airplaneIcon   = document.getElementById('airplaneIcon');
+
+    if (memoriesScroll && flightProgress && airplaneIcon) {
+      memoriesScroll.addEventListener('scroll', () => {
+        const maxScroll = memoriesScroll.scrollHeight - memoriesScroll.clientHeight;
+        let percent = 0;
+        if (maxScroll > 0) percent = (memoriesScroll.scrollTop / maxScroll) * 100;
+        percent = Math.min(Math.max(percent, 0), 100);
+        flightProgress.style.height = percent + '%';
+        airplaneIcon.style.top = percent + '%';
+      }, { passive: true });
+    }
+
+    document.addEventListener('keydown', e => {
+      if (current === FORM_SLIDE) return;
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+      if (e.key === 'ArrowLeft')                   { e.preventDefault(); prev(); }
+    });
+
+    let tx = 0, ty = 0;
+    document.addEventListener('touchstart', e => { tx = e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY; }, { passive:true });
+    document.addEventListener('touchend',   e => {
+      if (current === FORM_SLIDE) return;
+      const dx = e.changedTouches[0].clientX - tx;
+      const dy = e.changedTouches[0].clientY - ty;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) dx < 0 ? next() : prev();
+    }, { passive:true });
+
+    /* Music */
+    musicBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      if (playing) {
+        bgMusic.pause();
+        musicIcon.textContent = '♪';
+        musicBtn.classList.remove('playing');
+        playing = false;
+      } else {
+        bgMusic.volume = 0.25;
+        bgMusic.play()
+          .then(() => { musicIcon.textContent = '♫'; musicBtn.classList.add('playing'); playing = true; })
+          .catch(() => {});
+      }
+    });
+
+    /* ── Init ── */
+    cards.forEach((c,i) => {
+      c.style.display = i === 0 ? 'flex' : 'none';
+      if (i !== 0) c.classList.remove('active');
+    });
+    updateUI();
+
+    // Welcome Modal Initialization
+    const welcomeModal = document.getElementById('welcomeModal');
+    const btnOpen      = document.getElementById('btnOpen');
+    const globalMarquee= document.getElementById('globalMarquee');
+    
+    btnOpen.addEventListener('click', (e) => {
+      e.stopPropagation(); // Cegah click tembus ke document.body
+      // Hide modal
+      welcomeModal.classList.add('hidden');
+      
+      // Play background music
+      bgMusic.volume = 0.25;
+      bgMusic.play().then(() => {
+        musicIcon.textContent = '♫';
+        musicBtn.classList.add('playing');
+        playing = true;
+      }).catch(err => console.log('Music play error:', err));
+
+      // Show running text
+      globalMarquee.classList.add('active');
+
+      // Small delay before starting typewriter to let modal fade out nicely
+      setTimeout(() => {
+        runTypewritersInCard(cards[0]);
+      }, 500);
+    });
+
+  })();
+  </script>
+</body>
+</html>
